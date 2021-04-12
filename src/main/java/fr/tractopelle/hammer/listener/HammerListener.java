@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HammerListener implements Listener {
 
@@ -57,10 +58,10 @@ public class HammerListener implements Listener {
         final ItemStack item = event.getPlayer().getItemInHand();
 
         if (item != null &&
-                item.getType().equals(corePlugin.getHammerManager().getMaterial())
+                item.getType().name().equals(corePlugin.getConfiguration().get("HAMMER.MATERIAL"))
                 && item.hasItemMeta()
                 && item.getItemMeta().hasLore()
-                && item.getItemMeta().getLore().equals(corePlugin.getHammerManager().getLore())) {
+                && item.getItemMeta().getLore().equals(corePlugin.getConfiguration().getStringList("HAMMER.LORE"))) {
 
             for (final Block block : getBlocks(event.getPlayer(), event.getBlock())) {
 
@@ -69,7 +70,7 @@ public class HammerListener implements Listener {
                 final BlockBreakEvent breakEvent = new BlockBreakEvent(block, event.getPlayer());
                 Bukkit.getPluginManager().callEvent(breakEvent);
 
-                if (!breakEvent.isCancelled() && (!(corePlugin.getHammerManager().getBlacklistBlocks().contains(block.getType()))))
+                if (!breakEvent.isCancelled() && !(corePlugin.getConfiguration().getStringList("BLACKLIST-BLOCKS").contains(block.getType().name())))
                     block.breakNaturally();
 
                 blacklist.remove(block.getLocation());

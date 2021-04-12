@@ -11,11 +11,11 @@ NOT-A-NUMBER: "Please put a number."
 GIVE: "You gave §6%number% §ehammer to §6%player%§e."
 
 HAMMER:
-  MATERIAL: "DIAMOND_PICKAXE"
+  MATERIAL: DIAMOND_PICKAXE
   NAME: "§6Hammer"
   LORE:
     - ""
-    - " §f» §7This tool allows mining in 3x3x1"
+    - " §f» §eThis tool allows mining in 3x3x1"
     - ""
 
 BLACKLIST-BLOCKS:
