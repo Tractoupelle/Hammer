@@ -1,0 +1,17 @@
+name: Hammer
+version: ${project.version}
+description: Public Hammer plugin.
+author: Tractopelle
+
+main: fr.tractopelle.hammer.CorePlugin
+
+commands:
+  hammer:
+    description: Main command.
+    permission: hammer.admin
+
+permissions:
+  hammer.*:
+    description: Gives access to Hammer command.
+    children:
+      hammer.admin: true

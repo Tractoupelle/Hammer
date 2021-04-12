@@ -1,0 +1,23 @@
+##########################################################
+#  Default configuration for Hammer by Tractopelle#4020  #
+##########################################################
+
+PREFIX: "§6Hammer §f» §e"
+
+USAGE:  "Usage: /hammer <player> <number>"
+NO-PERMISSION: "You don't have the permission."
+UNKNOW-PLAYER: "This player does not exist or is not logged in."
+NOT-A-NUMBER: "Please put a number."
+GIVE: "You gave §6%number% §ehammer to §6%player%§e."
+
+HAMMER:
+  MATERIAL: "DIAMOND_PICKAXE"
+  NAME: "§6Hammer"
+  LORE:
+    - ""
+    - " §f» §7This tool allows mining in 3x3x1"
+    - ""
+
+BLACKLIST-BLOCKS:
+  - BEDROCK
+  - OBSIDIAN
