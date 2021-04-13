@@ -7,4 +7,5 @@
 
 **Hoping that you like the plugin**
 
-https://github.com/Tractoupelle/Hammer/raw/master/Hammer-0.0.1.jar>Download the PLUGIN</a>
+<a id="raw-url" href="https://github.com/Tractoupelle/Hammer/raw/master/Hammer-0.0.1.jar">Download the PLUGIN</a>
+
