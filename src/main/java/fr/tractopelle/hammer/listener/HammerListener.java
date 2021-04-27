@@ -29,7 +29,7 @@ public class HammerListener implements Listener {
     }
 
     @EventHandler
-    public void getBlockFace(final PlayerInteractEvent event) {
+    public void getBlockFace(PlayerInteractEvent event) {
 
         Player player = event.getPlayer();
         ItemStack itemInHand = player.getItemInHand();
