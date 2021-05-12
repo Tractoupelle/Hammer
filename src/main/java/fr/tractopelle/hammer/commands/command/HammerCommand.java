@@ -1,9 +1,9 @@
-package fr.tractopelle.hammer.commands;
+package fr.tractopelle.hammer.commands.command;
 
 import fr.tractopelle.hammer.CorePlugin;
-import fr.tractopelle.hammer.utils.ItemBuilder;
-import fr.tractopelle.hammer.utils.Logger;
-import fr.tractopelle.hammer.utils.command.HCommand;
+import fr.tractopelle.hammer.commands.HCommand;
+import fr.tractopelle.hammer.item.ItemBuilder;
+import fr.tractopelle.hammer.item.RItemUnsafe;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -52,16 +52,19 @@ public class HammerCommand extends HCommand {
 
             ItemBuilder hammer = new ItemBuilder(Material.getMaterial(corePlugin.getConfiguration().getString("HAMMER.MATERIAL")), number)
                     .setName(corePlugin.getConfiguration().getString("HAMMER.NAME"))
-                    .setLore(corePlugin.getConfiguration().getStringList("HAMMER.LORE"));
+                    .setListLore(corePlugin.getConfiguration().getStringList("HAMMER.LORE"));
+
+            RItemUnsafe rItemUnsafe = new RItemUnsafe(hammer);
+            rItemUnsafe.setString("identifier", "hammer");
 
             commandSender.sendMessage(prefix + corePlugin.getConfiguration().getString("GIVE")
                     .replace("%number%", String.valueOf(number))
                     .replace("%player%", target.getName()));
 
             if (target.getInventory().firstEmpty() == -1) {
-                target.getWorld().dropItem(target.getLocation(), hammer.toItemStack());
+                target.getWorld().dropItem(target.getLocation(), rItemUnsafe.toItemBuilder().toItemStack());
             } else {
-                target.getInventory().addItem(hammer.toItemStack());
+                target.getInventory().addItem(rItemUnsafe.toItemBuilder().toItemStack());
             }
 
         }

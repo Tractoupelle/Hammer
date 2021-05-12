@@ -1,4 +1,4 @@
-package fr.tractopelle.hammer.utils.command;
+package fr.tractopelle.hammer.commands;
 
 import fr.tractopelle.hammer.CorePlugin;
 import org.bukkit.command.Command;

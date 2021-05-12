@@ -1,8 +1,8 @@
 package fr.tractopelle.hammer;
 
-import fr.tractopelle.hammer.commands.HammerCommand;
+import fr.tractopelle.hammer.commands.command.HammerCommand;
 import fr.tractopelle.hammer.config.Config;
-import fr.tractopelle.hammer.listener.HammerListener;
+import fr.tractopelle.hammer.listener.PlayerListener;
 import fr.tractopelle.hammer.utils.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -41,7 +41,7 @@ public class CorePlugin extends JavaPlugin {
 
     private void registerListeners() {
         PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvents(new HammerListener(this), this);
+        pm.registerEvents(new PlayerListener(this), this);
     }
 
     public Config getConfiguration() { return configuration; }

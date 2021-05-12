@@ -1,6 +1,7 @@
 package fr.tractopelle.hammer.listener;
 
 import fr.tractopelle.hammer.CorePlugin;
+import fr.tractopelle.hammer.item.RNBItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,19 +13,21 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class HammerListener implements Listener {
+public class PlayerListener implements Listener {
+
+    /* TODO
+        Change verif where is looking the player with yaw and pitch
+     */
 
     private final CorePlugin corePlugin;
     private final List<Location> blacklist = new ArrayList<>();
     public HashMap<String, Integer> blockFace = new HashMap<>();
 
-    public HammerListener(CorePlugin corePlugin) {
+    public PlayerListener(CorePlugin corePlugin) {
         this.corePlugin = corePlugin;
     }
 
@@ -35,7 +38,12 @@ public class HammerListener implements Listener {
         ItemStack itemInHand = player.getItemInHand();
         BlockFace bFace = event.getBlockFace();
 
-        if (itemInHand.getType().equals(Material.DIAMOND_PICKAXE)) {
+        if (itemInHand == null || itemInHand.getType().equals(Material.AIR) || !itemInHand.hasItemMeta())
+            return;
+
+        final RNBItem rnbItem = new RNBItem(itemInHand);
+
+        if (rnbItem.containsTag("identifier") && rnbItem.getString("identifier").equalsIgnoreCase("hammer")) {
             if (bFace == BlockFace.UP || bFace == BlockFace.DOWN) {
                 blockFace.put(player.getName(), 1);
             }
@@ -55,13 +63,14 @@ public class HammerListener implements Listener {
 
         if (blacklist.contains(event.getBlock().getLocation())) return;
 
-        final ItemStack item = event.getPlayer().getItemInHand();
+        final ItemStack itemStack = event.getPlayer().getItemInHand();
 
-        if (item != null &&
-                item.getType().name().equals(corePlugin.getConfiguration().get("HAMMER.MATERIAL"))
-                && item.hasItemMeta()
-                && item.getItemMeta().hasLore()
-                && item.getItemMeta().getLore().equals(corePlugin.getConfiguration().getStringList("HAMMER.LORE"))) {
+        if (itemStack == null || itemStack.getType().equals(Material.AIR) || !itemStack.hasItemMeta())
+            return;
+
+        final RNBItem rnbItem = new RNBItem(itemStack);
+
+        if (rnbItem.containsTag("identifier") && rnbItem.getString("identifier").equalsIgnoreCase("hammer")) {
 
             for (final Block block : getBlocks(event.getPlayer(), event.getBlock())) {
 
